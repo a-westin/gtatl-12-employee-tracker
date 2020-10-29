@@ -84,3 +84,36 @@ CREATE TABLE department
                 (title, salary, dept_id)
             VALUES
                 ("Founder", 250000, 5);
+
+            INSERT INTO employee
+                (first_name, last_name, role_id, manager_id)
+            VALUES
+                ("Denholm", "Reynholm", 1, NULL);
+            INSERT INTO employee
+                (first_name, last_name, role_id, manager_id)
+            VALUES
+                ("Douglas", "Reynholm", 2, 1);
+            INSERT INTO employee
+                (first_name, last_name, role_id, manager_id)
+            VALUES
+                ("Jen", "Barber", 3, 2);
+            INSERT INTO employee
+                (first_name, last_name, role_id, manager_id)
+            VALUES
+                ("Martin", "Fischer", 4, 2);
+            INSERT INTO employee
+                (first_name, last_name, role_id, manager_id)
+            VALUES
+                ("Patrick", "Marsh", 5, 2);
+            INSERT INTO employee
+                (first_name, last_name, role_id, manager_id)
+            VALUES
+                ("Roy", "Trenneman", 6, 3);
+            INSERT INTO employee
+                (first_name, last_name, role_id, manager_id)
+            VALUES
+                ("Maurice", "Moss", 6, 3);
+            INSERT INTO employee
+                (first_name, last_name, role_id, manager_id)
+            VALUES
+                ("Richmond", "Avenal", 6, 3);
