@@ -42,7 +42,7 @@ CREATE TABLE department
             INSERT INTO department
                 (dept_name)
             VALUES
-                ("IT");
+                ("Information Technology");
             INSERT INTO department
                 (dept_name)
             VALUES
@@ -59,3 +59,28 @@ CREATE TABLE department
                 (dept_name)
             VALUES
                 ("Founder");
+
+            INSERT INTO roles
+                (title, salary, dept_id)
+            VALUES
+                ("IT Technician", 65000, 1);
+            INSERT INTO roles
+                (title, salary, dept_id)
+            VALUES
+                ("Accounts Manager", 80000, 2);
+            INSERT INTO roles
+                (title, salary, dept_id)
+            VALUES
+                ("Relationship Manager", 75000, 3);
+            INSERT INTO roles
+                (title, salary, dept_id)
+            VALUES
+                ("HR Personnel", 50000, 4);
+            INSERT INTO roles
+                (title, salary, dept_id)
+            VALUES
+                ("CEO", 150000, 3);
+            INSERT INTO roles
+                (title, salary, dept_id)
+            VALUES
+                ("Founder", 250000, 5);
