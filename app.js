@@ -1,5 +1,23 @@
+// App requirements
 const inquirer = require("inquirer");
+const mysql = require("mysql");
 
+// Establishing connection to the database
+const connection = mysql.estConnection({
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "newday1!",
+  database: "employeesDB",
+});
+
+connection.connect(function (err) {
+  if (err) throw err;
+  // ask initial question once connection is established
+  initApp();
+});
+
+// Function to initialize the app
 function initApp() {
   inquirer
     .prompt({
@@ -35,8 +53,7 @@ function initApp() {
         updateEmpRole();
       } else if (res.action === "Update an employee manager") {
         updateEmpMgr();
-      } else if (res.action === "Quit") {
-        return;
+        connection.end();
       }
     })
     .catch((err) => console.log(err));
@@ -45,6 +62,11 @@ function initApp() {
 // Console logging whichever selection the user makes
 function viewAllEmp() {
   console.log("View all employees");
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    initApp();
+  });
 }
 
 function empByDept() {
@@ -74,5 +96,3 @@ function updateEmpRole() {
 function updateEmpMgr() {
   console.log("Update employee manager");
 }
-
-initApp();
