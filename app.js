@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const mysql = require("mysql");
 
 // Establishing connection to the database
-const connection = mysql.estConnection({
+const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
@@ -13,7 +13,18 @@ const connection = mysql.estConnection({
 
 connection.connect(function (err) {
   if (err) throw err;
-  // ask initial question once connection is established
+console.log("  , _");                                    
+console.log("   /|/ \  _            |     _  |\ ");         
+console.log("    |__/ |/ |  | /|/|  |/\  / \_|/ /|/|/|");  
+console.log("    | \_/|_/ \/|/ | |_/|  |/\_/ |_/ | | |_/");
+console.log("              (|");                           
+                                             
+console.log("     |\        _|         , _|_  ,_  o  _  ,");  
+console.log("   _ |/ /|/|  / |  |  |  / \_|  /  | | |/ / \_");
+console.log("   \_/\/ | |_/\/|_/ \/|_/ \/ |_/   |/|/|_/ \/"); 
+
+
+ // ask initial question once connection is established
   initApp();
 });
 
