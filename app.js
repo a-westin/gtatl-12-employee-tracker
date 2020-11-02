@@ -224,3 +224,47 @@ function addEmp() {
       if (err) throw err;
     });
 }
+
+// Function to remove an employee
+function removeEmp() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Please confirm that you wish to remove an employee.",
+        name: "confirm",
+        choices: ["Yes", "No"],
+      },
+      {
+        type: "list",
+        message: "Which employee do you wish to remove?",
+        name: "remove",
+        choices: getEmpArray(),
+        when: (answer) => answer.confirm === "Yes",
+      },
+    ])
+    .then((res) => {
+      if (res.confirm === "No") {
+        initApp();
+      } else {
+        let employeeID = res.remove.id;
+        connection.query(
+          "DELETE FROM employee WHERE id = ?",
+          [employeeID],
+          (err, result) => {
+            if (err) throw err;
+            console.log(
+              `${res.remove.first_name} ${res.remove.last_name} was successfully removed from the database.`
+            );
+            initApp();
+          }
+        );
+      }
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
+
+
+
