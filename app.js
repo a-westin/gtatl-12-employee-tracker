@@ -446,3 +446,88 @@ function removeEmpRole() {
       if (err) throw err;
     });
 }
+
+// Function to edit an existing role
+function updateEmpRole() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Please confirm that you wish to edit a role.",
+        name: "confirm",
+        choices: ["Yes", "No"],
+      },
+      {
+        type: "list",
+        message: "Which role do you wish to edit?",
+        name: "roleToEdit",
+        choices: getRoleArray(),
+        when: (answer) => answer.confirm === "Yes",
+      },
+      {
+        type: "checkbox",
+        message: "Select the item you wish to edit for this role.",
+        name: "itemsToEdit",
+        choices: ["Title", "Salary", "Department"],
+        when: (answer) => answer.confirm === "Yes",
+      },
+      {
+        type: "input",
+        message: "What is the new title?",
+        name: "title",
+        when: (answer) =>
+          answer.confirm === "Yes" && answer.itemsToEdit.includes("Title"),
+      },
+      {
+        type: "input",
+        message: "What is the new salary?",
+        name: "salary",
+        when: (answer) =>
+          answer.confirm === "Yes" && answer.itemsToEdit.includes("Salary"),
+      },
+      {
+        type: "list",
+        message: "What is the new department?",
+        name: "department",
+        choices: getDeptArray(),
+        when: (answer) =>
+          answer.confirm === "Yes" && answer.itemsToEdit.includes("Department"),
+      },
+    ])
+    .then((res) => {
+      if (res.confirm === "No") {
+        initApp();
+      } else {
+        for (let i = 0; i < res.itemsToEdit.length; i++) {
+          if (res.itemsToEdit[i] === "Title") {
+            connection.query(
+              "UPDATE roles SET title = ? WHERE id = ?",
+              [res.title, res.roleToEdit.id],
+              (err, result) => {
+                console.log("Title successfully updated.");
+              }
+            );
+          } else if (res.itemsToEdit[i] === "Salary") {
+            connection.query(
+              "UPDATE roles SET salary = ? WHERE id = ?",
+              [res.salary, res.roleToEdit.id],
+              (err, result) => {
+                console.log("Salary successfully updated.");
+              }
+            );
+          } else if (res.itemsToEdit[i] === "Department") {
+            connection.query(
+              "UPDATE roles SET department_id = ? WHERE id = ?",
+              [res.department.id, res.roleToEdit.id],
+              (err, result) => {
+                console.log("Department successfully updated.");
+              }
+            );
+          } else {
+            console.log("Error");
+          }
+        }
+        initApp();
+      }
+    });
+}
