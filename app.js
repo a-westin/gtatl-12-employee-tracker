@@ -324,3 +324,49 @@ function removeDept() {
       if (err) throw err;
     });
 }
+
+// Function to update an existing department
+function editDept() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Please confirm that you wish to edit a department.",
+        name: "confirm",
+        choices: ["Yes", "No"],
+      },
+      {
+        type: "list",
+        message: "Which department do you wish to edit?",
+        name: "editedDept",
+        choices: getDeptArray(),
+        when: (answer) => answer.confirm === "Yes",
+      },
+      {
+        type: "input",
+        message: "What is the new name of the department?",
+        name: "deptName",
+        when: (answer) => answer.confirm === "Yes",
+      },
+    ])
+    .then((res) => {
+      if (res.confirm === "No") {
+        initApp();
+      } else {
+        connection.query(
+          "UPDATE department SET dept_name = ? WHERE id = ?",
+          [res.deptName, res.editedDept.id],
+          (err, result) => {
+            if (err) throw err;
+            console.log(
+              `${res.editedDept.dept_name} was updated to ${res.deptName}.`
+            );
+            initApp();
+          }
+        );
+      }
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
