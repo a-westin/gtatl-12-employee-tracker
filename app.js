@@ -90,40 +90,58 @@ function initApp() {
     .catch((err) => console.log(err));
 }
 
-// Console logging whichever selection the user makes
+// Function to display all employees
 function viewAllEmp() {
   console.log("View all employees");
-  connection.query("SELECT * FROM employee", function (err, res) {
-    if (err) throw err;
-    console.table(res);
-    initApp();
-  });
+  connection.query(
+    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    FROM employee 
+    LEFT JOIN employee AS manager ON employee.manager_id = manager.id
+    LEFT JOIN roles ON employee.role_id = roles.id 
+    LEFT JOIN department ON roles.department_id = department.id`,
+    function (err, res) {
+      if (err) throw err;
+      console.log("\nEmployee Listing\n--------------------------------------");
+      console.table(res);
+      initApp();
+    }
+  );
 }
 
-function empByDept() {
-  console.log("View all employees by department");
-}
+// // Console logging whichever selection the user makes
+// function viewAllEmp() {
+//   console.log("View all employees");
+//   connection.query("SELECT * FROM employee", function (err, res) {
+//     if (err) throw err;
+//     console.table(res);
+//     initApp();
+//   });
+// }
 
-function empByMgr() {
-  console.log("View all employees by manager");
-}
+// function empByDept() {
+//   console.log("View all employees by department");
+// }
 
-function viewAllRoles() {
-  console.log("View all roles");
-}
+// function empByMgr() {
+//   console.log("View all employees by manager");
+// }
 
-function addEmp() {
-  console.log("Add an employee");
-}
+// function viewAllRoles() {
+//   console.log("View all roles");
+// }
 
-function removeEmp() {
-  console.log("Remove an employee");
-}
+// function addEmp() {
+//   console.log("Add an employee");
+// }
 
-function updateEmpRole() {
-  console.log("Update an employee role");
-}
+// function removeEmp() {
+//   console.log("Remove an employee");
+// }
 
-function updateEmpMgr() {
-  console.log("Update employee manager");
-}
+// function updateEmpRole() {
+//   console.log("Update an employee role");
+// }
+
+// function updateEmpMgr() {
+//   console.log("Update employee manager");
+// }
