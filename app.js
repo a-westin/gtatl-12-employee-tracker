@@ -531,3 +531,65 @@ function updateEmpRole() {
       }
     });
 }
+
+// Function to render emp array from the employeesDB
+function getEmpArray() {
+  connection.query(
+    "SELECT id, first_name, last_name FROM employee",
+    (err, data) => {
+      if (err) throw err;
+      for (let i = 0; i < data.length; i++) {
+        let thisEmployee = {
+          name: `${data[i].first_name} ${data[i].last_name}`,
+          value: data[i],
+        };
+        empArray.push(thisEmployee);
+      }
+    }
+  );
+  return empArray;
+}
+
+// Function to render mgr array from the employeesDB; if no mgr, add a "null" value
+function getMgrArray() {
+  connection.query(
+    "SELECT id, first_name, last_name FROM employee",
+    (err, data) => {
+      if (err) throw err;
+      for (let i = 0; i < data.length; i++) {
+        let manager = {
+          name: `${data[i].first_name} ${data[i].last_name}`,
+          value: data[i],
+        };
+        mgrArray.push(manager);
+      }
+      mgrArray.push({ name: "No Manager", value: { id: null } });
+    }
+  );
+  return mgrArray;
+}
+
+// Function to render roles array from the employeesDB
+function getRoleArray() {
+  connection.query("SELECT id, title FROM roles", (err, data) => {
+    if (err) throw err;
+    for (let i = 0; i < data.length; i++) {
+      let role = { name: data[i].title, value: data[i] };
+      roleArray.push(role);
+    }
+  });
+  return roleArray;
+}
+
+// Function to render dept array from the employeesDB
+function getDeptArray() {
+  connection.query("SELECT * FROM department", (err, data) => {
+    if (err) throw err;
+    for (let i = 0; i < data.length; i++) {
+      let department = { name: data[i].dept_name, value: data[i] };
+      deptArray.push(department);
+    }
+  });
+
+  return deptArray;
+}
