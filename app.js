@@ -46,8 +46,12 @@ function initApp() {
         "View all roles",
         "Add an employee",
         "Remove an employee",
+        "Add a department",
+        "Remove a department",
+        "Edit a department",
+        "Add an employee role",
+        "Remove an employee role",
         "Update an employee role",
-        "Update an employee manager",
         "Quit",
       ],
     })
