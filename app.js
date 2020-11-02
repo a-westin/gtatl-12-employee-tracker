@@ -13,16 +13,20 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
   if (err) throw err;
-console.log("  , _");                                    
-console.log("   /|/ \  _            |     _  |\ ");         
-console.log("    |__/ |/ |  | /|/|  |/\  / \_|/ /|/|/|");  
-console.log("    | \_/|_/ \/|/ | |_/|  |/\_/ |_/ | | |_/");
-console.log("              (|");                           
-                                             
-console.log("     |\        _|         , _|_  ,_  o  _  ,");  
-console.log("   _ |/ /|/|  / |  |  |  / \_|  /  | | |/ / \_");
-console.log("   \_/\/ | |_/\/|_/ \/|_/ \/ |_/   |/|/|_/ \/"); 
-
+console.log("  888888ba                             dP                dP");            
+console.log("   88    `8b                            88                88");            
+console.log("  a88aaaa8P' .d8888b. dP    dP 88d888b. 88d888b. .d8888b. 88 88d8b.d8b."); 
+console.log("   88   `8b. 88ooood8 88    88 88'  `88 88'  `88 88'  `88 88 88'`88'`88"); 
+console.log("   88     88 88.  ... 88.  .88 88    88 88    88 88.  .88 88 88  88  88"); 
+console.log("   dP     dP `88888P' `8888P88 dP    dP dP    dP `88888P' dP dP  dP  dP"); 
+console.log("                           .88");                                          
+console.log("                       d8888P");                                           
+console.log("  dP                dP                     dP            oo");                   
+console.log("  88                88                     88");                                 
+console.log("  88 88d888b. .d888b88 dP    dP .d8888b. d8888P 88d888b. dP .d8888b. .d8888b."); 
+console.log("  88 88'  `88 88'  `88 88    88 Y8ooooo.   88   88'  `88 88 88ooood8 Y8ooooo."); 
+console.log("  88 88    88 88.  .88 88.  .88       88   88   88       88 88.  ...       88"); 
+console.log("  dP dP    dP `88888P8 `88888P' `88888P'   dP   dP       dP `88888P' `88888P'"); 
 
  // ask initial question once connection is established
   initApp();
