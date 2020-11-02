@@ -408,3 +408,41 @@ function addEmpRole() {
       if (err) throw err;
     });
 }
+
+// Function to remove a role
+function removeEmpRole() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Please confirm that you wish to remove a role.",
+        name: "confirm",
+        choices: ["Yes", "No"],
+      },
+      {
+        type: "list",
+        message: "Which role do you wish to remove?",
+        name: "remove",
+        choices: getRoleArray(),
+        when: (answer) => answer.confirm === "Yes",
+      },
+    ])
+    .then((res) => {
+      if (res.confirm === "No") {
+        initApp();
+      } else {
+        connection.query(
+          "DELETE FROM roles WHERE id = ?",
+          [res.remove.id],
+          (err) => {
+            if (err) throw err;
+            console.log("Role was successfully removed.");
+            initApp();
+          }
+        );
+      }
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
