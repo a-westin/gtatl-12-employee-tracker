@@ -94,7 +94,7 @@ function initApp() {
 function viewAllEmp() {
   console.log("View all employees");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles., roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee 
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -112,7 +112,7 @@ function viewAllEmp() {
 function empByDept() {
   console.log("View all employees by department");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles., roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -133,7 +133,7 @@ function empByDept() {
 function empByMgr() {
   console.log("View all employees by manager");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles., roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee 
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id 
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -153,7 +153,7 @@ function empByMgr() {
 // Function to view all roles
 function viewAllRoles() {
   connection.query(
-    `SELECT roles.id, roles.title, roles.salary, department.dept_name 
+    `SELECT roles.id, roles., roles.salary, department.dept_name 
     FROM roles
     LEFT JOIN department ON roles.department_id = department.id`,
     (err, data) => {
@@ -280,7 +280,7 @@ function addDept() {
         [res.newDept],
         (err, result) => {
           if (err) throw err;
-          console.log(`${res.newDept} was successfully added to the datbase.`);
+          console.log(`${res.newDept} was successfully added to the database.`);
           initApp();
         }
       );
@@ -314,7 +314,7 @@ function removeDept() {
           [res.remove.id],
           (err, result) => {
             if (err) throw err;
-            console.log("Department was successfullyremoved.");
+            console.log("Department was successfully removed.");
             initApp();
           }
         );
@@ -365,6 +365,44 @@ function editDept() {
           }
         );
       }
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
+
+// Function to add a role
+function addEmpRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What role do you wish to add?",
+        name: "newRole",
+      },
+      {
+        type: "input",
+        message: "Please enter the salary for this role.",
+        name: "newRoleSalary",
+      },
+      {
+        type: "list",
+        message: "What department is this role under?",
+        name: "newRoleDept",
+        choices: getDeptArray(),
+      },
+    ])
+    .then((res) => {
+      let departmentID = res.newRoleDept.id;
+      connection.query(
+        "INSERT INTO roles (, salary, department_id) VALUES (?, ?, ?)",
+        [res.newRole, res.newRoleSalary, departmentID],
+        (err, result) => {
+          if (err) throw err;
+          console.log(`${res.newRole} was successfully added to the database.`);
+          initApp();
+        }
+      );
     })
     .catch((err) => {
       if (err) throw err;
