@@ -101,7 +101,7 @@ function initApp() {
 function viewAllEmp() {
   console.log("View all employees");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee 
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -119,7 +119,7 @@ function viewAllEmp() {
 function empByDept() {
   console.log("View all employees by department");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -140,7 +140,7 @@ function empByDept() {
 function empByMgr() {
   console.log("View all employees by manager");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee 
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id 
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -160,7 +160,7 @@ function empByMgr() {
 // Function to view all roles
 function viewAllRoles() {
   connection.query(
-    `SELECT roles.id, roles.salary, department.dept_name 
+    `SELECT roles.id, roles.title, roles.salary, department.dept_name 
     FROM roles
     LEFT JOIN department ON roles.department_id = department.id`,
     (err, data) => {
