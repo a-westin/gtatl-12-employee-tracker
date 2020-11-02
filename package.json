@@ -1,0 +1,25 @@
+{
+    "name": "gtatl-12-employee-tracker",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-westin/gtatl-12-employee-tracker"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+    "url": "https://github.com/a-westin/gtatl-12-employee-tracker"
+    },
+    "homepage": "https://github.com/a-westin/gtatl-12-employee-tracker",
+    "dependencies": {
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.4"
+    }
+    }
