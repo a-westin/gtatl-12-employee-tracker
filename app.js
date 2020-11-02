@@ -129,3 +129,23 @@ function empByDept() {
   );
 }
 
+// Function to display all employees by manager
+function empByMgr() {
+  console.log("View all employees by manager");
+  connection.query(
+    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    FROM employee 
+    LEFT JOIN employee AS manager ON employee.manager_id = manager.id 
+    LEFT JOIN roles ON employee.role_id = roles.id 
+    LEFT JOIN department ON roles.department_id = department.id
+    ORDER BY manager`,
+    function (err, res) {
+      if (err) throw err;
+      console.log(
+        "\nEmployees by Manager\n--------------------------------------"
+      );
+      console.table(res);
+      initApp();
+    }
+  );
+}
