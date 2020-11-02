@@ -2,6 +2,11 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 
+const empArray = [];
+const mgrArray = [];
+const roleArray = [];
+const deptArray = [];
+
 // Establishing connection to the database
 const connection = mysql.createConnection({
   host: "localhost",
@@ -13,6 +18,7 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
   if (err) throw err;
+console.log("------------------------------------------------------------------------------");  
 console.log("  888888ba                             dP                dP");            
 console.log("   88    `8b                            88                88");            
 console.log("  a88aaaa8P' .d8888b. dP    dP 88d888b. 88d888b. .d8888b. 88 88d8b.d8b."); 
@@ -26,7 +32,8 @@ console.log("  88                88                     88");
 console.log("  88 88d888b. .d888b88 dP    dP .d8888b. d8888P 88d888b. dP .d8888b. .d8888b."); 
 console.log("  88 88'  `88 88'  `88 88    88 Y8ooooo.   88   88'  `88 88 88ooood8 Y8ooooo."); 
 console.log("  88 88    88 88.  .88 88.  .88       88   88   88       88 88.  ...       88"); 
-console.log("  dP dP    dP `88888P8 `88888P' `88888P'   dP   dP       dP `88888P' `88888P'"); 
+console.log("  dP dP    dP `88888P8 `88888P' `88888P'   dP   dP       dP `88888P' `88888P'");
+console.log("------------------------------------------------------------------------------");  
 
  // ask initial question once connection is established
   initApp();
@@ -94,7 +101,7 @@ function initApp() {
 function viewAllEmp() {
   console.log("View all employees");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles., roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee 
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -112,7 +119,7 @@ function viewAllEmp() {
 function empByDept() {
   console.log("View all employees by department");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles., roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -133,7 +140,7 @@ function empByDept() {
 function empByMgr() {
   console.log("View all employees by manager");
   connection.query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles., roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
+    `SELECT employee.id, employee.first_name, employee.last_name, roles.salary, department.dept_name, concat(manager.first_name," ", manager.last_name) AS "manager"
     FROM employee 
     LEFT JOIN employee AS manager ON employee.manager_id = manager.id 
     LEFT JOIN roles ON employee.role_id = roles.id 
@@ -153,7 +160,7 @@ function empByMgr() {
 // Function to view all roles
 function viewAllRoles() {
   connection.query(
-    `SELECT roles.id, roles., roles.salary, department.dept_name 
+    `SELECT roles.id, roles.salary, department.dept_name 
     FROM roles
     LEFT JOIN department ON roles.department_id = department.id`,
     (err, data) => {
