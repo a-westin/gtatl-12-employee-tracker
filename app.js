@@ -44,6 +44,7 @@ function initApp() {
         "View all employees by department",
         "View all employees by manager",
         "View all roles",
+        "View all departments",
         "Add an employee",
         "Remove an employee",
         "Add a department",
@@ -64,14 +65,25 @@ function initApp() {
         empByMgr();
       } else if (res.action === "View all roles") {
         viewAllRoles();
+      } else if (res.action === "View all departments") {
+        viewAllDept();
       } else if (res.action === "Add an employee") {
         addEmp();
       } else if (res.action === "Remove an employee") {
         removeEmp();
+      } else if (res.action === "Add a department") {
+        addDept();
+      } else if (res.action === "Remove a department") {
+        removeDept();
+      } else if (res.action === "Edit a department") {
+        editDept();
+      } else if (res.action === "Add an employee role") {
+        addEmpRole();
+      } else if (res.action === "Remove an employee role") {
+        removeEmpRole();
       } else if (res.action === "Update an employee role") {
         updateEmpRole();
-      } else if (res.action === "Update an employee manager") {
-        updateEmpMgr();
+      } else if (res.action === "Quit") { 
         connection.end();
       }
     })
