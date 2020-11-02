@@ -287,3 +287,40 @@ function addDept() {
     });
 }
 
+// Function to remove a department
+function removeDept() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Please confirm that you wish  to remove a department.",
+        name: "confirm",
+        choices: ["Yes", "No"],
+      },
+      {
+        type: "list",
+        message: "Which department do you wish to remove?",
+        name: "remove",
+        choices: getDeptArray(),
+        when: (answer) => answer.confirm === "Yes",
+      },
+    ])
+    .then((res) => {
+      if (res.confirm === "No") {
+        initApp();
+      } else {
+        connection.query(
+          "DELETE FROM department WHERE id = ?",
+          [res.remove.id],
+          (err, result) => {
+            if (err) throw err;
+            console.log("Department was successfullyremoved.");
+            initApp();
+          }
+        );
+      }
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
