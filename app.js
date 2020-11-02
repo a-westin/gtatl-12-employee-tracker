@@ -266,5 +266,24 @@ function removeEmp() {
     });
 }
 
-
+// Function to add a department
+function addDept() {
+  inquirer
+    .prompt({
+      type: "input",
+      message: "What department do you wish to add?",
+      name: "newDept",
+    })
+    .then((res) => {
+      connection.query(
+        "INSERT INTO department (dept_name) VALUES (?)",
+        [res.newDept],
+        (err, result) => {
+          if (err) throw err;
+          console.log(`${res.newDept} was successfully added to the datbase.`);
+          initApp();
+        }
+      );
+    });
+}
 
