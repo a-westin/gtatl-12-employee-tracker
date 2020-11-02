@@ -174,3 +174,53 @@ function viewAllDept() {
     initApp();
   });
 }
+
+// Function to add an employee
+function addEmp() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message:
+          "First name?",
+        name: "first_name",
+      },
+      {
+        type: "input",
+        message: "Last name?",
+        name: "last_name",
+      },
+      {
+        type: "list",
+        message: "Employee role?",
+        name: "role",
+        choices: getRoleArray(),
+      },
+      {
+        type: "list",
+        message: "Employee's manager?",
+        name: "manager",
+        choices: getMgrArray(),
+      },
+    ])
+    .then((res) => {
+      const firstName = res.first_name;
+      const lastName = res.last_name;
+      const roleID = res.role.id;
+      const mgrID = res.manager.id;
+      connection.query(
+        "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
+        [firstName, lastName, roleID, mgrID],
+        (err, result) => {
+          if (err) throw err;
+          console.log(
+            `${firstName} ${lastName} was successfully added to employee database.`
+          );
+          initApp();
+        }
+      );
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
